@@ -1,5 +1,5 @@
 const express = require('express');
-bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const routes = require('./routes/api');
 require('dotenv').config();
@@ -36,9 +36,10 @@ app.get("/", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from API!" });
-});
+app.route('/api')
+.get(function(req, res) {
+    res.send('This is my api text');
+})
 
 app.listen(port, '0.0.0.0', function(err) {
   console.log("Started listening on %s", app.url);
