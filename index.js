@@ -23,6 +23,7 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(bodyParser.json());
 
 app.use('/api', routes);
 
@@ -35,10 +36,12 @@ app.get("/", (req, res) => {
   res.json({ message: "Hello from server!" });
 });
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from API!" });
+app.get("/", (req, res) => {
+  res.json({ message: "Hello from server!" });
 });
 
-app.listen(port, () => {
+app.listen(port, '0.0.0.0', function(err) {
+  console.log("Started listening on %s", app.url);
+},() => {
   console.log(`Server running on port ${port}`);
-});
+} );
