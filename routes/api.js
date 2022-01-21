@@ -39,5 +39,11 @@ router.delete('/commands/remove/:id', (req, res, next) => {
     .catch(next);
 });
 
+router.delete('/commands/removeall', (req, res, next) => {
+  Command.deleteMany({}) //tous les id sont de type ObjectId, et non plus un str
+    .then((data) => res.json(data))
+    .catch(next);
+});
+
 
 module.exports = router;
