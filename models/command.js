@@ -11,6 +11,9 @@ const CommandSchema = new Schema({
         type: Array,
         required: [true, 'The command content field is required'],
     },
+    date: {
+        type: String,
+    }
 });
 
 // Create model for todo
