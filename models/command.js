@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 // Create schema for todo
 const CommandSchema = new Schema({
     name: {
-        type: String,
-        required: [true, 'A commande name field is required'],
+        type: String
     },
     content: {
         type: Array,
