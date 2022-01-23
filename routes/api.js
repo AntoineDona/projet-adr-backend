@@ -17,7 +17,22 @@ router.get('/commands', (req, res, next) => {
 
 router.get('/commands/gettype/:type', (req, res, next) => {
   // This will return all the data, exposing only the id and action field to the client
-  Command.find({"content.status" : req.params.type})
+  Command.find({ "content.status": req.params.type })
+    .then((data) => res.json(data))
+    .catch(next);
+});
+
+router.put('/commands/changestatus', (req, res, next) => {
+  let querry = {
+    _id: req.body.id,
+    "content.id": req.body.item_id
+  }
+  console.log(querry);
+  let update = {
+    $set: { "content.$.status": req.body.status }
+  }
+  console.log(update);
+  Command.findOneAndUpdate(querry, update)
     .then((data) => res.json(data))
     .catch(next);
 });
