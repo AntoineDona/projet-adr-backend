@@ -15,6 +15,13 @@ router.get('/commands', (req, res, next) => {
     .catch(next);
 });
 
+router.get('/commands/gettype/:type', (req, res, next) => {
+  // This will return all the data, exposing only the id and action field to the client
+  Command.find({"content.status" : req.params.type})
+    .then((data) => res.json(data))
+    .catch(next);
+});
+
 router.post('/commands/add', (req, res, next) => {
   if (req.body.content && req.body.name) {
     Command.create(req.body)
@@ -25,12 +32,6 @@ router.post('/commands/add', (req, res, next) => {
       error: 'The input field is empty',
     });
   }
-});
-
-router.delete('/commands/update/:id', (req, res, next) => {
-  Command.findOneAndDelete({ id: ObjectId(req.params.id) }) //tous les id sont de type ObjectId, et non plus un str
-    .then((data) => res.json(data))
-    .catch(next);
 });
 
 router.delete('/commands/remove/:id', (req, res, next) => {
