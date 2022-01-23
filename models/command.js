@@ -7,7 +7,7 @@ const CommandSchema = new Schema({
         type: String
     },
     content: {
-        type: Array,
+        type: [Object],
         required: [true, 'The command content field is required'],
     },
     date: {
