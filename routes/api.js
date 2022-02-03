@@ -29,7 +29,10 @@ router.put('/commands/changestatus', (req, res, next) => {
   }
   console.log(querry);
   let update = {
-    $set: { "content.$.status": req.body.status }
+    $set: { 
+      last_update: req.body.last_update,
+      "content.$.status": req.body.status 
+    }
   }
   console.log(update);
   Command.findOneAndUpdate(querry, update)

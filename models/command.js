@@ -12,6 +12,9 @@ const CommandSchema = new Schema({
     },
     date: {
         type: String,
+    },
+    last_update: {
+        type: String,
     }
 });
 
