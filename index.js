@@ -27,14 +27,14 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.get('/api', (req, res, next) => {
+app.get('/', (req, res, next) => {
   // This will return all the data, exposing only the id and action field to the client
   res.json({ message: "Hello from API!" });
   next();
 });
 
-app.use('/api/commands', commandRoutes);
-app.use('/api/user', userRoutes);
+app.use('/commands', commandRoutes);
+app.use('/user', userRoutes);
 
 
 app.use((err, req, res, next) => {
