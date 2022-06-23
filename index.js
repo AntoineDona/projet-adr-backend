@@ -1,10 +1,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const routes = require('./routes/api');
 require('dotenv').config();
-
 const app = express();
+
+const commandRoutes = require('./routes/command');
+const userRoutes = require('./routes/user');
 
 const port = process.env.PORT || 8080;
 
@@ -26,12 +27,14 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-app.get("/", (req, res, next) => {
-  res.json({ message: "Hello from server!" });
+app.get('/api', (req, res, next) => {
+  // This will return all the data, exposing only the id and action field to the client
+  res.json({ message: "Hello from API!" });
   next();
 });
 
-app.use('/api', routes);
+app.use('/api/commands', commandRoutes);
+app.use('/api/user', userRoutes);
 
 
 app.use((err, req, res, next) => {
