@@ -26,21 +26,18 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
+app.get("/", (req, res, next) => {
+  res.json({ message: "Hello from server!" });
+  next();
+});
+
 app.use('/api', routes);
+
 
 app.use((err, req, res, next) => {
   console.log(err);
   next();
 });
-
-app.get("/", (req, res) => {
-  res.json({ message: "Hello from server!" });
-});
-
-app.route('/api')
-.get(function(req, res) {
-    res.send('This is my api text');
-})
 
 app.listen(port, '0.0.0.0', function(err) {
   console.log("Started listening on %s", app.url);
