@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 // Create schema for todo
@@ -21,4 +21,4 @@ const CommandSchema = new Schema({
 // Create model for todo
 const Command = mongoose.model('command', CommandSchema);
 
-module.exports = Command;
+export default Command;

@@ -1,11 +1,13 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const Command = require('../models/command');
-var ObjectId = require('mongodb').ObjectId;
+import Command from '../models/command.js';
+import ObjectId from 'mongodb';
+import {wsUpdateCommands} from '../controllers/command.js';
 
 
 router.get('/', (req, res, next) => {
   // This will return all the data, exposing only the id and action field to the client
+  console.log("getting commands");
   Command.find({})
     .then((data) => res.json(data))
     .catch(next);
@@ -30,16 +32,21 @@ router.put('/changestatus', (req, res, next) => {
       "content.$.status": req.body.status 
     }
   }
-  console.log(update);
   Command.findOneAndUpdate(querry, update)
-    .then((data) => res.json(data))
+    .then((data) => {
+      wsUpdateCommands()
+      return res.json(data)
+    })
     .catch(next);
 });
 
 router.post('/add', (req, res, next) => {
   if (req.body.content && req.body.name) {
     Command.create(req.body)
-      .then((data) => res.json(data))
+      .then((data) => {
+        wsUpdateCommands()
+        return res.json(data)
+      })
       .catch(next);
   } else {
     res.json({
@@ -61,4 +68,4 @@ router.delete('/removeall', (req, res, next) => {
 });
 
 
-module.exports = router;
+export default router;
