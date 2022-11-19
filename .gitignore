@@ -5,6 +5,3 @@
 
 #environement variables
 .env
-
-#packages
-package.json
